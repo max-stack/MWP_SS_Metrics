@@ -20,7 +20,6 @@ class Test_Unsimilar:
         
         train_questions = [x["original_text"] for x in train_data]
 
-        i=0
         for test_question in test_data:
             max_ratio = 0
             test_nl = test_question["original_text"]
@@ -28,8 +27,6 @@ class Test_Unsimilar:
                 max_ratio = max(max_ratio, SequenceMatcher(None, test_nl, train_nl).ratio())
             if max_ratio < self.similar_ratio:
                 new_testset.append(test_question)
-            i += 1
-            print(i)
 
         with open(TESTSET_PATH, "w", encoding="utf-8") as testset_file:
             json.dump(new_testset, testset_file, ensure_ascii=False, indent=4)
