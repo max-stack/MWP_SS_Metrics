@@ -1,0 +1,96 @@
+Wed 16 Mar 2022 00:59:32 INFO random_seed=2021
+use_gpu=True
+max_output_len=30
+gpu_id=0
+test_step=2
+load_best_config=False
+supervising_mode=fully_supervised
+rebuild=False
+validset_divide=True
+shuffle=False
+embedding_size=128
+hidden_size=512
+learning_rate=0.001
+embedding_learning_rate=0.001
+rnn_cell_type=gru
+num_layers=2
+weight_decay=1e-05
+epoch_nums=80
+test_batch_size=1
+dropout_ratio=0.5
+loss_weight=0.01
+step_size=20
+beam_size=5
+share_vocab=False
+mask_symbol=NUM
+symbol_for_tree=True
+equation_fix=prefix
+min_word_keep=5
+min_generate_keep=5
+single=False
+linear=True
+language=en
+train_batch_size=32
+source_equation_fix=infix
+task_type=single_equation
+log_path=D:\Documents\ComputerScienceYear3\PersonalProject\MWP-SS-Metrics\mwp_solver\logs/SAUSolver_logs.log
+checkpoint_path=D:\Documents\ComputerScienceYear3\PersonalProject\MWP-SS-Metrics\mwp_solver\checkpoint/SAUSolver_checkpoint.pth
+trained_model_path=D:\Documents\ComputerScienceYear3\PersonalProject\MWP-SS-Metrics\mwp_solver\trained_model/SAUSolver_trained_model.pth
+dataset_path=D:\Documents\ComputerScienceYear3\PersonalProject\MWP-SS-Metrics\mwp_solver\..\dataset
+model=SAUSolver
+device=cuda
+map_location=cuda
+gpu_nums=1
+
+
+Wed 16 Mar 2022 00:59:38 INFO SAUSolver(
+  (embedder): BasicEmbedder(
+    (embedder): Embedding(1032, 128, padding_idx=0)
+    (dropout): Dropout(p=0.5, inplace=False)
+  )
+  (encoder): BasicRNNEncoder(
+    (encoder): GRU(128, 512, num_layers=2, dropout=0.5, bidirectional=True)
+  )
+  (decoder): Prediction(
+    (dropout): Dropout(p=0.5, inplace=False)
+    (concat_l): Linear(in_features=512, out_features=512, bias=True)
+    (concat_r): Linear(in_features=1024, out_features=512, bias=True)
+    (concat_lg): Linear(in_features=512, out_features=512, bias=True)
+    (concat_rg): Linear(in_features=1024, out_features=512, bias=True)
+    (ops): Linear(in_features=1024, out_features=6, bias=True)
+    (attn): TreeAttention(
+      (attn): Linear(in_features=1024, out_features=512, bias=True)
+      (score): Linear(in_features=512, out_features=1, bias=True)
+    )
+    (score): Score(
+      (attn): Linear(in_features=1536, out_features=512, bias=True)
+      (score): Linear(in_features=512, out_features=1, bias=False)
+    )
+  )
+  (node_generater): GenerateNode(
+    (embeddings): Embedding(6, 128)
+    (em_dropout): Dropout(p=0.5, inplace=False)
+    (generate_l): Linear(in_features=1152, out_features=512, bias=True)
+    (generate_r): Linear(in_features=1152, out_features=512, bias=True)
+    (generate_lg): Linear(in_features=1152, out_features=512, bias=True)
+    (generate_rg): Linear(in_features=1152, out_features=512, bias=True)
+  )
+  (merge): Merge(
+    (em_dropout): Dropout(p=0.5, inplace=False)
+    (merge): Linear(in_features=1152, out_features=512, bias=True)
+    (merge_g): Linear(in_features=1152, out_features=512, bias=True)
+  )
+  (sa): SemanticAlignmentModule(
+    (attn): TreeAttention(
+      (attn): Linear(in_features=1024, out_features=512, bias=True)
+      (score): Linear(in_features=512, out_features=1, bias=True)
+    )
+    (encoder_linear1): Linear(in_features=512, out_features=512, bias=True)
+    (encoder_linear2): Linear(in_features=512, out_features=512, bias=True)
+    (decoder_linear1): Linear(in_features=512, out_features=512, bias=True)
+    (decoder_linear2): Linear(in_features=512, out_features=512, bias=True)
+  )
+)
+Wed 16 Mar 2022 00:59:38 INFO start training...
+Wed 16 Mar 2022 01:00:11 INFO epoch [  1] avr loss [1.35830931] | train time 0h 0m 33s
+Wed 16 Mar 2022 01:00:42 INFO ---------- valid total [237] | valid equ acc [0.135] | valid value acc [0.135] | valid time 0h 0m 31s
